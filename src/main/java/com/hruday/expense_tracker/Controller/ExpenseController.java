@@ -11,26 +11,29 @@ import java.util.List;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/expenses")
 public class ExpenseController {
 
+    @Autowired
     private ExpenseService expenseService;
 
-    @Autowired
-    public ExpenseController(ExpenseService expenseService) {
-        this.expenseService = expenseService;
-    }
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<Expense> createExpense(@RequestBody Expense expense) {
         Expense createdExpense = expenseService.createExpense(expense);
         return new ResponseEntity<>(createdExpense, HttpStatus.CREATED);
     }
 
-    @GetMapping
+    @GetMapping("/search")
     public ResponseEntity<List<Expense>> getAllExpenses() {
         List<Expense> expenses = expenseService.getAllExpenses();
         return ResponseEntity.ok(expenses);
+    }
+
+    @GetMapping("/search/{id}")
+    public ResponseEntity<Expense> getExpenseById(@PathVariable("id") Long id) {
+        Expense expense = expenseService.getExpenseById(id);
+        return ResponseEntity.ok(expense);
     }
 
 }

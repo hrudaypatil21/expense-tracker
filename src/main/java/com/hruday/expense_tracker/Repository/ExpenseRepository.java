@@ -7,8 +7,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface ExpenseRepository extends JpaRepository<Expense, Long> {
-
     List<Expense> findByPaymentTo(String paymentTo);
     List<Expense> findByDescription(String description);
-    List<Expense> findByDate(LocalDateTime expenseDate);
+    List<Expense> findByExpenseDate(LocalDateTime expenseDate);
 }

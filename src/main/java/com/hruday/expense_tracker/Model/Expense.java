@@ -34,6 +34,4 @@ public class Expense {
     @Column(name="description")
     private String description;
 
-
-
 }
