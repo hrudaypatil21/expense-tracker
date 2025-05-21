@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ExpenseService {
@@ -31,6 +33,20 @@ public class ExpenseService {
     public List<Expense> getAllExpenses() {
         return expenseRepository.findAll();
     }
+
+    public List<Expense> getExpensesByPaymentTo(String paymentTo) {
+        return expenseRepository.findByPaymentTo(paymentTo);
+    }
+
+    public List<Expense> getExpensesByDescription(String description) {
+        return expenseRepository.findByDescription(description);
+    }
+
+    public List<Expense> getExpensesByDates(LocalDateTime startingDate, LocalDateTime endingDate) {
+        return expenseRepository.findByExpenseDateBetween(startingDate, endingDate);
+    }
+
+
 
 
 }
