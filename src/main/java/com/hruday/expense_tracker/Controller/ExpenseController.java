@@ -26,31 +26,31 @@ public class ExpenseController {
         return new ResponseEntity<>(createdExpense, HttpStatus.CREATED);
     }
 
-    @GetMapping("/search")
+    @GetMapping("/expenses")
     public ResponseEntity<List<Expense>> getAllExpenses() {
         List<Expense> expenses = expenseService.getAllExpenses();
         return ResponseEntity.ok(expenses);
     }
 
-    @GetMapping("/search/{id}")
+    @GetMapping("/expenses/search/{id}")
     public ResponseEntity<Expense> getExpenseById(@PathVariable("id") Long id) {
         Expense expense = expenseService.getExpenseById(id);
         return ResponseEntity.ok(expense);
     }
 
-    @GetMapping("/search/paymentTo/{paymentTo}")
+    @GetMapping("/expenses/search/paymentTo/{paymentTo}")
     public ResponseEntity<List<Expense>> getExpensesByPaymentTo(@PathVariable ("paymentTo") String paymentTo) {
         List<Expense> expenses = expenseService.getExpensesByPaymentTo(paymentTo);
         return ResponseEntity.ok(expenses);
     }
 
-    @GetMapping("/search/description/{description}")
+    @GetMapping("/expenses/search/description/{description}")
     public ResponseEntity<List<Expense>> getExpensesByDescription(@PathVariable ("description") String description) {
         List<Expense> expenses = expenseService.getExpensesByDescription(description);
         return ResponseEntity.ok(expenses);
     }
 
-    @GetMapping("/search/expenseDate")
+    @GetMapping("/expenses/search/expenseDate")
     public ResponseEntity<List<Expense>> getExpensesByDates(
             @RequestParam("startingDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startingDate,
             @RequestParam("endingDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endingDate) {
