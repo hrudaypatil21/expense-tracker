@@ -12,31 +12,34 @@
 
 <div class="max-w-4xl mx-auto mt-10 p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md">
     <h1 class="text-3xl font-bold text-center mb-4 text-center">Expense Tracker</h1>
-    <div>
+    <div class="search-container mb-4">
         <input
             type="text"
             id="searchInput"
-            placeholder="Search transactions..."
+            placeholder="Search expenses..."
             class="w-full p-2 border border-gray-300 rounded mb-4"
-            oninput="searchTransactions()"
+            hx-get="/expenses/"
+            hx-trigger="keyup changed delay:500ms"
+            hx-target="tbody"
+            hx-indicator="#loadingIndicator"
             />
-        <button ></button>
+
+        <span class="loading-indicator htmx-indicator">Loading...</span>
     </div>
-    <div>
+
         <table class="expenses-table">
             <thead>
             <tr>
                 <th class="px-4 py-2">Date</th>
-                <th class="px-4 py-2">Category</th>
+<!--                <th class="px-4 py-2">Category</th>-->
                 <th class="px-4 py-2">Amount</th>
                 <th class="px-4 py-2">Description</th>
-<!--                <th class="px-4 py-2">Actions</th>-->
                 <th class="px-4 py-2">From/To</th>
             </tr>
             </thead>
-            <tbody hx-get="/"
+            <tbody hx-get="/expenses" hx-trigger="load" hx-target="this">
         </table>
-    </div>
+
 </div>
 
 </body>
