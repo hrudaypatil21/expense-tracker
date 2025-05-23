@@ -38,17 +38,23 @@ public class ExpenseController {
         return ResponseEntity.ok(expense);
     }
 
-    @GetMapping("/search/paymentTo/{paymentTo}")
-    public ResponseEntity<List<Expense>> getExpensesByPaymentTo(@PathVariable ("paymentTo") String paymentTo) {
-        List<Expense> expenses = expenseService.getExpensesByPaymentTo(paymentTo);
+    @GetMapping("/search")
+    public ResponseEntity<List<Expense>> searchExpenses(@RequestParam("query") String query) {
+        List<Expense> expenses = expenseService.searchExpenses(query);
         return ResponseEntity.ok(expenses);
     }
 
-    @GetMapping("/search/description/{description}")
-    public ResponseEntity<List<Expense>> getExpensesByDescription(@PathVariable ("description") String description) {
-        List<Expense> expenses = expenseService.getExpensesByDescription(description);
-        return ResponseEntity.ok(expenses);
-    }
+//    @GetMapping("/search/paymentTo/{paymentTo}")
+//    public ResponseEntity<List<Expense>> getExpensesByPaymentTo(@PathVariable ("paymentTo") String paymentTo) {
+//        List<Expense> expenses = expenseService.getExpensesByPaymentTo(paymentTo);
+//        return ResponseEntity.ok(expenses);
+//    }
+//
+//    @GetMapping("/search/description/{description}")
+//    public ResponseEntity<List<Expense>> getExpensesByDescription(@PathVariable ("description") String description) {
+//        List<Expense> expenses = expenseService.getExpensesByDescription(description);
+//        return ResponseEntity.ok(expenses);
+//    }
 
     @GetMapping("/search/expenseDate")
     public ResponseEntity<List<Expense>> getExpensesByDates(

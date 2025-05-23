@@ -45,6 +45,9 @@ public class ExpenseService {
         return expenseRepository.findByExpenseDateBetween(startingDate, endingDate);
     }
 
+    public List<Expense> searchExpenses(String query) {
+        return expenseRepository.searchExpenses(query);
+    }
 
 
 
