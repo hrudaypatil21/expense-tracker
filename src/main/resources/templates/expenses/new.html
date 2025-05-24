@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Create New Expense</title>
+    <link rel="stylesheet" href="/css/output.css" />
+    <script src="https://unpkg.com/htmx.org@2.0.1"></script>
+</head>
+<body class="bg-black-100 dark:bg-gray-900 text-gray-900 dark:text-white min-h-screen">
+
+<div class="max-w-2xl mx-auto mt-10 p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md">
+    <h1 class="text-3xl font-bold mb-6">Create New Expense</h1>
+
+    <form id="expenseForm" hx-post="/api/expenses/create" hx-target="#response" hx-swap="innerHTML">
+        <div class="mb-4">
+            <label for="paymentTo" class="block text-sm font-medium mb-2">Payment To/From</label>
+            <input type="text" id="paymentTo" name="paymentTo" required
+                   class="w-full p-2 border border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600">
+        </div>
+
+        <div class="mb-4">
+            <label for="paymentMethod" class="block text-sm font-medium mb-2">Payment Method</label>
+            <input type="text" id="paymentMethod" name="paymentMethod"
+                   class="w-full p-2 border border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600">
+        </div>
+
+        <div class="mb-4">
+            <label for="amount" class="block text-sm font-medium mb-2">Amount</label>
+            <input type="number" step="0.01" id="amount" name="amount" required
+                   class="w-full p-2 border border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600">
+        </div>
+
+        <div class="mb-4">
+            <label for="expenseDate" class="block text-sm font-medium mb-2">Date</label>
+            <input type="datetime-local" id="expenseDate" name="expenseDate" required
+                   class="w-full p-2 border border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600">
+        </div>
+
+        <div class="mb-4">
+            <label for="description" class="block text-sm font-medium mb-2">Description</label>
+            <textarea id="description" name="description" rows="3"
+                      class="w-full p-2 border border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600"></textarea>
+        </div>
+
+        <div class="flex justify-end space-x-4">
+            <a href="/" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+                Cancel
+            </a>
+            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Create Expense
+            </button>
+        </div>
+
+        <div id="response" class="mt-4"></div>
+    </form>
+</div>
+
+<script>
+    document.getElementById('expenseForm').addEventListener('htmx:afterRequest', function(evt) {
+        if (evt.detail.successful) {
+            setTimeout(function() {
+                window.location.href = '/';
+            }, 1500);
+        }
+    });
+</script>
+</body>
+</html>
