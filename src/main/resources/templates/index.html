@@ -27,8 +27,30 @@
         <span id="loadingIndicator" class="loading-indicator htmx-indicator">Loading...</span>
     </div>
     <div>
+        <span>
         <a href="/expenses/new" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg transition-colors">Add New Expense</a>
+        <form
+        hx-get="/api/expenses/search/expenseDate"
+        hx-trigger="change"
+        hx-target="tbody"
+        hx-indicator="#loadingIndicator">
+        <label for="startingDate">After:
+        </label>
+            <input
+            type="date" id="startingDate" name="startingDate"
+                   class="w-full p-2 border border-gray-300 rounded mb-4">
+
+        <label for="endingDate">Before:
+        </label>
+            <input
+                    type="date" id="endingDate" name="endingDate"
+                    class="w-full p-2 border border-gray-300 rounded mb-4">
+
+        <button type="submit">Confirm</button>
+        </form>
+            </span>
     </div>
+
 
     <table class="expenses-table">
         <thead>

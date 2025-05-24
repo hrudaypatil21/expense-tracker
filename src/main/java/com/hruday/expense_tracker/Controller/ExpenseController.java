@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -58,8 +59,8 @@ public class ExpenseController {
 
     @GetMapping("/search/expenseDate")
     public ResponseEntity<List<Expense>> getExpensesByDates(
-            @RequestParam("startingDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startingDate,
-            @RequestParam("endingDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endingDate) {
+            @RequestParam("startingDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startingDate,
+            @RequestParam("endingDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endingDate) {
 
         List<Expense> expenses = expenseService.getExpensesByDates(startingDate, endingDate);
         return ResponseEntity.ok(expenses);

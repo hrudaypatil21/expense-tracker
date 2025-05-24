@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -41,7 +42,7 @@ public class ExpenseService {
         return expenseRepository.findByDescription(description);
     }
 
-    public List<Expense> getExpensesByDates(LocalDateTime startingDate, LocalDateTime endingDate) {
+    public List<Expense> getExpensesByDates(LocalDate startingDate, LocalDate endingDate) {
         return expenseRepository.findByExpenseDateBetween(startingDate, endingDate);
     }
 

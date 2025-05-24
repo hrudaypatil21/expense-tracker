@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -29,7 +30,7 @@ public class Expense {
     private Float amount;
 
     @Column(name="expense_date", nullable = false)
-    private LocalDateTime expenseDate;
+    private LocalDate expenseDate;
 
     @Column(name="description")
     private String description;
