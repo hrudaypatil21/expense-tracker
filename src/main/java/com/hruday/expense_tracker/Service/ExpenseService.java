@@ -22,6 +22,8 @@ public class ExpenseService {
 
     @Transactional
     public Expense createExpense(Expense expense) {
+
+
         return expenseRepository.save(expense);
     }
 

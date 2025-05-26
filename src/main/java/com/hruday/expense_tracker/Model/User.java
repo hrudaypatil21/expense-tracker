@@ -25,4 +25,9 @@ public class User {
 
     @Column(nullable = false)
     String password;
+
+    @Column(nullable = false)
+    Long balance;
+
+
 }

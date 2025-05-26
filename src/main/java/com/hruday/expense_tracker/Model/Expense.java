@@ -29,10 +29,30 @@ public class Expense {
     @Column(name="amount", nullable = false)
     private Float amount;
 
+    @Enumerated
+    @Column(name="expense_type", nullable = false)
+    private ExpenseType expenseType;
+
     @Column(name="expense_date", nullable = false)
     private LocalDate expenseDate;
 
     @Column(name="description")
     private String description;
+
+    public enum ExpenseType {
+        DEPOSIT("Deposit"),
+        WITHDRAWAL("Withdrawal");
+
+        private final String displayName;
+
+        ExpenseType(String displayName) {
+            this.displayName = displayName;
+        }
+
+        @Override
+        public String toString() {
+            return displayName;
+        }
+    }
 
 }
