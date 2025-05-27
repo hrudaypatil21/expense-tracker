@@ -4,6 +4,7 @@ import com.hruday.expense_tracker.Model.Expense;
 import com.hruday.expense_tracker.Model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -20,4 +21,11 @@ public interface ExpenseRepository extends JpaRepository<Expense, Long> {
 
     List<Expense> findByUser(User user);
     List<Expense> findByUserAndPaymentTo(User user, String paymentTo);
+    List<Expense> findByUserAndExpenseDateBetween(User user, LocalDate startingDate, LocalDate endingDate);
+    List<Expense> findByUserAndDescription(User user, String description);
+
+    @Query("SELECT e FROM Expense e WHERE e.user = :user AND " +
+            "(LOWER(e.paymentTo) LIKE LOWER(CONCAT('%', :query, '%')) OR " +
+            "LOWER(e.description) LIKE LOWER(CONCAT('%', :query, '%')))")
+    List<Expense> findByUserAndQuery(@Param("user") User user, @Param("query") String query);
 }

@@ -52,18 +52,35 @@ public class ExpenseService {
     }
 
     public List<Expense> getExpensesByPaymentTo(String paymentTo) {
-        return expenseRepository.findByPaymentTo(paymentTo);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found with email: " + email));
+
+        return expenseRepository.findByUserAndPaymentTo(user, paymentTo);
     }
 
     public List<Expense> getExpensesByDescription(String description) {
-        return expenseRepository.findByDescription(description);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found with email: " + email));
+        return expenseRepository.findByUserAndDescription(user, description);
     }
 
     public List<Expense> getExpensesByDates(LocalDate startingDate, LocalDate endingDate) {
-        return expenseRepository.findByExpenseDateBetween(startingDate, endingDate);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found with email: " + email));
+        return expenseRepository.findByUserAndExpenseDateBetween(user, startingDate, endingDate);
     }
 
     public List<Expense> searchExpenses(String query) {
-        return expenseRepository.searchExpenses(query);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found with email: " + email));
+        return expenseRepository.findByUserAndQuery(user, query);
     }
 }

@@ -48,7 +48,7 @@ public class User {
 
     @Override
     public String getName() {
-        return email.replaceAll("@.*", "");
+        return email;
     }
 
     @Override
@@ -74,3 +74,5 @@ public class User {
 
 //    @Column(nullable = false, unique = true)
 //    String username = email.replaceAll("@.*", "");
+
+//email.replaceAll("@.*", "");
