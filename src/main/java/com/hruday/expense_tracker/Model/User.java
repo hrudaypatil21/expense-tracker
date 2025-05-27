@@ -47,7 +47,7 @@ public class User {
     }
 
     @Override
-    public String getUsername() {
+    public String getName() {
         return email.replaceAll("@.*", "");
     }
 

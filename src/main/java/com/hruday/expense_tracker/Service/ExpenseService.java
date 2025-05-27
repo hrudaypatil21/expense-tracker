@@ -5,6 +5,8 @@ import com.hruday.expense_tracker.Model.User;
 import com.hruday.expense_tracker.Repository.ExpenseRepository;
 import com.hruday.expense_tracker.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,10 +28,12 @@ public class ExpenseService {
     }
 
     @Transactional
-    public Expense createExpense(Long userId, Long id, Expense expense) {
-        if(userRepository.findById(id).isEmpty()){
-            throw new RuntimeException("User not found with id: " + id);
-        }
+    public Expense createExpense(Expense expense) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found with email: " + email));
+        expense.setUser(user);
         return expenseRepository.save(expense);
     }
 
@@ -39,7 +43,12 @@ public class ExpenseService {
     }
 
     public List<Expense> getAllExpenses() {
-        return expenseRepository.findAll();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found with email: " + email));
+
+        return expenseRepository.findByUser(user);
     }
 
     public List<Expense> getExpensesByPaymentTo(String paymentTo) {
