@@ -23,7 +23,7 @@ public class ExpenseController {
 
     @PostMapping("/create")
     public ResponseEntity<Expense> createExpense(@RequestPart Long id, @RequestBody Expense expense) {
-        Expense createdExpense = expenseService.createExpense(id, expense);
+        Expense createdExpense = expenseService.createExpense(expense);
         return new ResponseEntity<>(createdExpense, HttpStatus.CREATED);
     }
 
@@ -45,17 +45,7 @@ public class ExpenseController {
         return ResponseEntity.ok(expenses);
     }
 
-//    @GetMapping("/search/paymentTo/{paymentTo}")
-//    public ResponseEntity<List<Expense>> getExpensesByPaymentTo(@PathVariable ("paymentTo") String paymentTo) {
-//        List<Expense> expenses = expenseService.getExpensesByPaymentTo(paymentTo);
-//        return ResponseEntity.ok(expenses);
-//    }
-//
-//    @GetMapping("/search/description/{description}")
-//    public ResponseEntity<List<Expense>> getExpensesByDescription(@PathVariable ("description") String description) {
-//        List<Expense> expenses = expenseService.getExpensesByDescription(description);
-//        return ResponseEntity.ok(expenses);
-//    }
+
 
     @GetMapping("/search/expenseDate")
     public ResponseEntity<List<Expense>> getExpensesByDates(
@@ -67,3 +57,14 @@ public class ExpenseController {
     }
 
 }
+//    @GetMapping("/search/paymentTo/{paymentTo}")
+//    public ResponseEntity<List<Expense>> getExpensesByPaymentTo(@PathVariable ("paymentTo") String paymentTo) {
+//        List<Expense> expenses = expenseService.getExpensesByPaymentTo(paymentTo);
+//        return ResponseEntity.ok(expenses);
+//    }
+//
+//    @GetMapping("/search/description/{description}")
+//    public ResponseEntity<List<Expense>> getExpensesByDescription(@PathVariable ("description") String description) {
+//        List<Expense> expenses = expenseService.getExpensesByDescription(description);
+//        return ResponseEntity.ok(expenses);
+//    }

@@ -26,7 +26,7 @@ public class ExpenseService {
     }
 
     @Transactional
-    public Expense createExpense(Long id, Expense expense) {
+    public Expense createExpense(Long userId, Long id, Expense expense) {
         if(userRepository.findById(id).isEmpty()){
             throw new RuntimeException("User not found with id: " + id);
         }
@@ -57,7 +57,4 @@ public class ExpenseService {
     public List<Expense> searchExpenses(String query) {
         return expenseRepository.searchExpenses(query);
     }
-
-
-
 }
